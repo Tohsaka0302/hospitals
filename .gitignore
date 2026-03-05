@@ -1,0 +1,53 @@
+# ========================
+# Dependencies
+# ========================
+node_modules/
+
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.local
+.env.*.local
+
+# ========================
+# Build Outputs
+# ========================
+dist/
+build/
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+seed_out.txt
+node_logs.txt
+
+# ========================
+# React / Vite cache
+# ========================
+.vite/
+.cache/
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# Editor & IDE
+# ========================
+.vscode/
+.idea/
+*.suo
+*.user
+
+# ========================
+# Misc
+# ========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
