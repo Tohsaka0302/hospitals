@@ -274,12 +274,44 @@ async function seed() {
                 }
             }
 
+            // For the first 5 patients, introduce deliberate identity variations
+            // to simulate real-world data entry discrepancies across hospitals.
+            // This triggers MediConnect's conflict detection during share.
+            let patientName = p.name;
+            let patientAge = p.age;
+            let patientGender = p.gender;
+
+            if (count < 5) {
+                // Variation 1: Name difference (abbreviation, typo, or middle name)
+                if (count === 0) {
+                    const parts = p.name.split(' ');
+                    patientName = parts.length > 1 ? `${parts[0][0]}. ${parts.slice(1).join(' ')}` : p.name;
+                }
+                // Variation 2: Age difference (hospital recorded at different visit date)
+                if (count === 1) {
+                    patientAge = p.age + 1;
+                }
+                // Variation 3: Both name and age differ
+                if (count === 2) {
+                    patientName = p.name + ' Jr.';
+                    patientAge = p.age - 1;
+                }
+                // Variation 4: Gender typo (Male -> male — case difference won't trigger, so swap)
+                if (count === 3) {
+                    patientGender = p.gender === 'Male' ? 'M' : 'F';
+                }
+                // Variation 5: Age off by 2
+                if (count === 4) {
+                    patientAge = p.age + 2;
+                }
+            }
+
             const newPatient = new PatientB({
                 // Keep identity the same — this is what links them across hospitals
-                name: p.name,
-                age: p.age,
+                name: patientName,
+                age: patientAge,
                 birth_date: p.birth_date,
-                gender: p.gender,
+                gender: patientGender,
                 national_id: p.national_id,   // ← same national_id as Hospital A
 
                 // Hospital B specific data
